@@ -35,7 +35,7 @@ if __name__ == '__main__':
     x = []
     for i in z:
         x.append(geraLista(i))
-    print(len(x))
+
     y =[]
     for i in range(len(x)):
         y.append(timeit.timeit("bubblesort({})".format(x[i]),setup="from __main__ import bubblesort",number=1))
