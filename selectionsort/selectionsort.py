@@ -34,7 +34,7 @@ def selection_sort(lista):
         for j in range(i + 1, len(lista)):
             if lista[menor] > lista[j]:
                 menor = j
-                swaps += 1
+            swaps += 1
 
         lista[i], lista[menor] = lista[menor], lista[i]
     return swaps
