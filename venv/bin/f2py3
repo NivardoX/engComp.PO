@@ -1,4 +1,4 @@
-#!/home/nivardo/Projects/engComp.PO/venv/bin/python
+#!/home/nivardo/Projects/engComp.PO/venv/bin/pypy
 # -*- coding: utf-8 -*-
 import re
 import sys
