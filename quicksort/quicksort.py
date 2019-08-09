@@ -81,7 +81,7 @@ if __name__ == '__main__':
     z = [100000, 200000, 300000, 400000, 500000, 1000000, 2000000]
     x = []
     for i in z:
-        x.append(geraListaInvertida(int(i//100)))
+        x.append(geraListaInvertida(int(i)))
     y = []
 
     for i in range(len(x)):
