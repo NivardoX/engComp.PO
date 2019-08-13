@@ -28,25 +28,25 @@ def desenhaGrafico(x, y, xl="Entradas", yl="Saídas", z='Tempo'):
     plt.savefig(z + ".png")
 
 
-def quickSort(lista, start, fim):
-    if start < fim:
-        pivo = randint(start, fim)
+def quickSort(lista, inicio, fim):
+    if inicio < fim:
+        pivo = randint(inicio, fim)
         temp = lista[fim]
         lista[fim] = lista[pivo]
         lista[pivo] = temp
 
-        p = partition(lista, start, fim)
-        quickSort(lista, start, p - 1)
+        p = partition(lista, inicio, fim)
+        quickSort(lista, inicio, p - 1)
         quickSort(lista, p + 1, fim)
 
 
-def partition(lista, start, fim):
-    pivo = randint(start, fim)
+def partition(lista, inicio, fim):
+    pivo = randint(inicio, fim)
 
     lista[fim], lista[pivo] = lista[pivo], lista[fim]
 
-    pivo_index = start - 1
-    for index in range(start, fim):
+    pivo_index = inicio - 1
+    for index in range(inicio, fim):
         if lista[index] < lista[fim]:
             pivo_index = pivo_index + 1
             lista[pivo_index], lista[index] = lista[index], lista[pivo_index]
