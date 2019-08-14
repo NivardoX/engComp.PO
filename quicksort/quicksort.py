@@ -1,5 +1,6 @@
 import timeit
-from random import shuffle
+from random import shuffle, randint
+import random
 
 import matplotlib.pyplot as plt
 import sys
@@ -23,53 +24,38 @@ def desenhaGrafico(x, y, xl="Entradas", yl="Saídas", z='Tempo'):
     ax.legend(bbox_to_anchor=(1, 1), bbox_transform=plt.gcf().transFigure)
     plt.ylabel(yl)
     plt.xlabel(xl)
+    plt.show()
     plt.savefig(z + ".png")
 
 
-def partition(lista, l, elemento_topo):
-    i = (l - 1)
-    x = lista[elemento_topo]
+def quickSort(lista, inicio, fim):
+    if inicio < fim:
+        pivo = randint(inicio, fim)
+        temp = lista[fim]
+        lista[fim] = lista[pivo]
+        lista[pivo] = temp
 
-    for j in range(l, elemento_topo):
-        if lista[j] <= x:
-            i = i + 1
-            lista[i], lista[j] = lista[j], lista[i]
-
-    lista[i + 1], lista[elemento_topo] = lista[elemento_topo], lista[i + 1]
-    return (i + 1)
+        p = partition(lista, inicio, fim)
+        quickSort(lista, inicio, p - 1)
+        quickSort(lista, p + 1, fim)
 
 
-def quickSort(lista, l, elemento_topo):
-    tam = elemento_topo - l + 1
-    pilha = [0] * (tam)
+def partition(lista, inicio, fim):
+    pivo = randint(inicio, fim)
 
-    top = -1
+    lista[fim], lista[pivo] = lista[pivo], lista[fim]
 
-    top = top + 1
-    pilha[top] = l
-    top = top + 1
-    pilha[top] = elemento_topo
+    pivo_index = inicio - 1
+    for index in range(inicio, fim):
+        if lista[index] < lista[fim]:
+            pivo_index = pivo_index + 1
+            lista[pivo_index], lista[index] = lista[index], lista[pivo_index]
 
-    while top >= 0:
+    temp = lista[pivo_index + 1]
+    lista[pivo_index + 1] = lista[fim]
+    lista[fim] = temp
 
-        elemento_topo = pilha[top]
-        top = top - 1
-        l = pilha[top]
-        top = top - 1
-
-        pivo = partition(lista, l, elemento_topo)
-
-        if pivo - 1 > l:
-            top = top + 1
-            pilha[top] = l
-            top = top + 1
-            pilha[top] = pivo - 1
-
-        if pivo + 1 < elemento_topo:
-            top = top + 1
-            pilha[top] = pivo + 1
-            top = top + 1
-            pilha[top] = elemento_topo
+    return pivo_index + 1
 
 
 def timeit_func(data):
@@ -85,8 +71,8 @@ if __name__ == '__main__':
     y = []
 
     for i in range(len(x)):
+        print(len(x[i]))
         y.append(
             timeit.timeit("quickSort({},{},{})".format(x[i], 0, len(x[i]) - 1), setup="from __main__ import quickSort",
-                          number=2))
-
+                          number=3))
     desenhaGrafico(z, y)
