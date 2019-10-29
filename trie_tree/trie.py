@@ -7,6 +7,8 @@ class Trie():
         self.last_char = False
 
     def delete(self,string):
+        print("Deletando a palavra {} da árvore".format(string))
+
         string = string.lower()
 
         string = list(string)
@@ -16,6 +18,7 @@ class Trie():
                     self.nodes.pop(self.nodes.index(node))
 
     def add(self,string):
+        print("Inserindo a palavra {} na árvore".format(string))
         string = string.lower()
         string = list(string)
         found = False
@@ -47,3 +50,38 @@ class Trie():
                 print(node.char, end=' ')
 
             node.print(1)
+    def search(self,string):
+        print("\n\nProcurando {} na árvore.\n".format(string))
+        if len(string) == 1:
+            print("!O tamanho da palavra deve ser maior que 1 char!")
+            return False
+        string_aux = string
+        string = string.lower()
+        string = list(string)
+        print("Procurando {} em {}.".format(string[0], [i.char for i in self.nodes]))
+
+        for node in self.nodes:
+            if node.char == string[0]:
+                string.pop(0)
+                output = "" if node.search(string) else " NÃO"
+
+                print("╔",end='')
+
+                for i in range(len("╠A palavra {}{} foi encontrada na árvore╣".format(string_aux,output))-2):
+                    print("═",end='')
+
+                print("╗",end='')
+
+                print("\n╠A palavra {}{} foi encontrada na árvore╣".format(string_aux,output))
+                print("╚",end='')
+                for i in range(len("╠A palavra {}{} foi encontrada na árvore╣".format(string_aux,output)) - 2):
+                    print("═", end='')
+                print('╝',end='')
+                break
+        else:
+            output = ' não'
+            print("\n╠A palavra {}{} foi encontrada na árvore╣".format(output, string_aux))
+            print("╚", end='')
+            for i in range(len("╠A palavra {}{} foi encontrada na árvore╣".format(string_aux,output)) - 2):
+                print("═", end='')
+            print('╝', end='')
